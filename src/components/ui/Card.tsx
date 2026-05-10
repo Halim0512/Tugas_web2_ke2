@@ -1,14 +1,20 @@
 import React from "react";
 
-type CardProps = {
+interface CardProps {
   children: React.ReactNode;
-  className?: string;
-};
+  className: string;
+}
 
-export default function Card({ children, className }: CardProps) {
+export const Card:React.FC<CardProps> = ({ children, className }) => {
   return (
-    <div className={`rounded-lg shadow-md p-6 bg-white ${className || ""}`}>
+    <div
+      className={`cursor-pointer border-4 border-red-900 rounded-lg p-6
+      shadow-xl shadow-black/20 hover:shadow-2xl hover:shadow-black/40
+      transition-all duration-300 hover:scale-105 bg-white ${className ?? ""}`}
+    >
       {children}
     </div>
   );
-}
+};
+
+export default Card;

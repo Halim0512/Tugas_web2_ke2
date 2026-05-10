@@ -1,33 +1,34 @@
-interface Option {
-  label: string;
-  value: string;
+import React from "react"; 
+
+interface SelectProps {
+    label: string;
+    name: string;
+    register: any;
+    error?: string;
+    options: {label: string; value: string}[];
 }
 
-interface SelectInputProps
-  extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  options: Option[];
-  error?: string;
-}
-
-const SelectInput: React.FC<SelectInputProps> = ({
-  options,
-  error,
-  ...props
+export const SelectInput: React.FC<SelectProps>=({
+    label,
+    name,
+    register,
+    error,
+    options
 }) => {
-  return (
-    <div className="flex flex-col">
-      <select {...props} className={`border p-2 rounded-md ${error ? "border-red-500 bg-red-50" : "border-gray-300"}`}>
-        <option value="">Pilih kategori</option>
-        {options.map((opt, i) => (
-          <option key={i} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
+    return(
+        <div className="flex flex-col gap-1">
+            <label>{label}</label>
 
-      {error && <p className="text-red-500 text-sm">{error}</p>}
-    </div>
-  );
+            <select {...register(name)} className="border px-3 py-2 rounded">
+                <option value="">Pilih...</option>
+                {options.map((opt) =>(
+                    <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                    </option>
+                ))}
+            </select>
+
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+        </div>
+    );
 };
-
-export default SelectInput;

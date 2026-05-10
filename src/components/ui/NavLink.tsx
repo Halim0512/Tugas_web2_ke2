@@ -1,31 +1,33 @@
 import React from "react";
 
 interface NavLinkProps {
-  label: string;
-  href: string;
-  icon: React.ReactNode;
-  isActive?: boolean;
+    label: string;
+    href: string;
+    icon?: React.ReactNode;
+    isActive?: boolean;
+    onClick?: () => void;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({
-  label,
-  href,
-  icon,
-  isActive,
+export const NavLink: React.FC<NavLinkProps> = ({
+    label,
+    href,
+    icon,
+    isActive = false,
+    onClick,
 }) => {
-  return (
-    <a
-      href={href}
-      className={`p-2 flex gap-2 items-center transition ${
-        isActive
-          ? "text-red-900 font-semibold"
-          : "text-gray-900 hover:text-red-900"
-      }`}
-    >
-      {icon && <span className="w-5 h-5">{icon}</span>}
-      <span>{label}</span>
-    </a>
-  );
-};
+    const activeStyle = "text-red-900";
+    const defaultStyle = "text-slate-600 hover:text-red-900";
 
-export default NavLink;
+    return (
+        <a
+            href={href}
+            onClick={onClick}
+            className={`flex items-center gap-2 px-4 py-2 font-medium transition-all duration-200 ${
+                isActive ? activeStyle : defaultStyle
+            }`}
+        >
+            {icon && <span className="w-5 h-5">{icon}</span>}
+            <span>{label}</span>
+        </a>
+    );
+};

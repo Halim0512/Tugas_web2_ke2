@@ -1,23 +1,36 @@
-interface InputTextProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  error?: string;
+import React from "react";
+
+interface BaseInputProps {
+    label?: string;
+    name: string;
+    register: any;
+    error?: string;
+    type?: string;
+    placeholder?: string;
 }
 
-const InputText: React.FC<InputTextProps> = ({ error, ...props }) => {
-  return (
-    <div className="flex flex-col">
-      <input
-        {...props}
-        className={`p-2 rounded-md outline-none border ${
-          error
-            ? "border-red-500 bg-red-50"
-            : "border-gray-300 focus:border-red-400"
-        }`}
-      />
-
-      {error && <p className="text-red-500 text-sm">{error}</p>}
-    </div>
-  );
+export const InputText: React.FC<BaseInputProps> = ({
+    label,
+    name,
+    register,
+    error,
+    type = "text",
+    placeholder
+}) => {
+    return (
+        <div className="flex flex-col gap-1">
+            {label && <label className="font-medium">{label}</label>}
+            <input
+                type={type}
+                placeholder={placeholder}
+                {...register(name)}
+                className={`p-2 border rounded w-full focus:outline-none focus:ring-2 ${
+                    error
+                        ? 'bg-red-200 border-red-600 focus:ring-red-400'
+                        : 'bg-white border-black focus:ring-gray-400'
+                }`}
+            />
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+        </div>
+    );
 };
-
-export default InputText;

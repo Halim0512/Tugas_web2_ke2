@@ -1,25 +1,31 @@
-interface TextareaInputProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  error?: string;
+import React from "react";
+
+interface TextAreaProps {
+    label: string;
+    name: string;
+    register: any;
+    error?: string;
+    placeholder?: string;
 }
 
-const TextareaInput: React.FC<TextareaInputProps> = ({
-  error,
-  ...props
-}) => {
-  return (
-    <div className="flex flex-col">
-      <textarea
-        {...props}
-        className={`border p-2 rounded-md outline-none ${
-          error
-            ? "border-red-500 bg-red-50"
-            : "border-gray-300 focus:border-red-400"
-        }`}
-      />
-      {error && <p className="text-red-500 text-sm">{error}</p>}
-    </div>
-  );
-};
+export const TextArea: React.FC<TextAreaProps>=({
+    label,
+    name,
+    register,
+    error,
+    placeholder,
+})=>{
+    return(
+        <div className="flex flex-col gap-1">
+            <label>{label}</label>
 
-export default TextareaInput;
+            <textarea
+            {...register(name)}
+            placeholder={placeholder}
+            className="border rounded px-3 py-2 min-h[100px]"
+            />
+
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+        </div>
+    );
+};

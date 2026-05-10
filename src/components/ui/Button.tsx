@@ -1,38 +1,34 @@
 interface ButtonProps {
-  label: string;
-  variant?: "primary" | "outline";
-  className?: string;
-  onClick?: () => void;
-  isLoading?: boolean;
-  type?: "button" | "submit";
+    label: string;
+    type?: "button" | "submit";
+    variant?: "primary" | "outline";
+    isLoading?: boolean;
+    onClick?: () => void;
+    className?: string; 
 }
 
-const Button: React.FC<ButtonProps> = ({
-  label,
-  variant = "primary",
-  className,
-  onClick,
-  isLoading = false,
-  type = "button",
+export const Button: React.FC<ButtonProps> = ({
+    label,
+    type = "button",
+    variant = "primary",
+    isLoading = false,
+    onClick,
+    className = "", 
 }) => {
-  const baseStyle =
-    "px-6 py-2 rounded font-medium transition-all duration-200 disabled:opacity-50";
+    const base = "px-4 py-2 rounded font-medium";
+    const styles = {
+        primary: "bg-red-900 text-white",
+        outline: "border border-red-900 text-red-900"
+    };
 
-  const variantStyle =
-    variant === "primary"
-      ? "bg-red-900 text-white hover:bg-red-800"
-      : "border border-red-900 text-red-900 hover:bg-red-100";
-
-  return (
-    <button
-      type={type}
-      onClick={onClick}
-      disabled={isLoading}
-      className={`${baseStyle} ${variantStyle} ${className || ""}`}
-    >
-      {isLoading ? "Loading..." : label}
-    </button>
-  );
+    return (
+        <button
+            type={type}
+            disabled={isLoading}
+            onClick={onClick}
+            className={`${base} ${styles[variant]} ${className}`}
+        >
+            {isLoading ? "Loading..." : label}
+        </button>
+    );
 };
-
-export default Button;
